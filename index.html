@@ -4,10 +4,10 @@
     <!--
         Name: Princess Ellis
         Date: June 20, 2026
-        Assignment: GitHub Prep and Structural Implementation
-        Purpose: This webpage creates a basic portfolio homepage using HTML.
-        It includes navigation, About, Projects, and Contact sections.
-        JavaScript is used to welcome the user by name.
+        Assignment: Control Flow Implementation
+        Purpose: This portfolio page uses HTML, CSS, and JavaScript to create
+        an interactive personal website. It includes conditional logic,
+        a loop-generated skills list, dark mode, and a contact form alert.
     -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,11 +21,31 @@
             color: #333;
         }
 
+        body.dark-mode {
+            background-color: #111;
+            color: white;
+        }
+
+        body.dark-mode section {
+            background-color: #222;
+            color: white;
+        }
+
         header {
             background-color: #222;
             color: white;
             padding: 20px;
             text-align: center;
+        }
+
+        .dark-toggle {
+            padding: 10px;
+            text-align: center;
+            background-color: #ddd;
+        }
+
+        body.dark-mode .dark-toggle {
+            background-color: #333;
         }
 
         nav {
@@ -48,7 +68,19 @@
             border-radius: 8px;
         }
 
-        .project-links img {
+        .featured-box {
+            border: 2px solid #222;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #e9e9ff;
+        }
+
+        body.dark-mode .featured-box {
+            background-color: #333;
+            border-color: white;
+        }
+
+        .project-links img, .personal-projects img {
             width: 200px;
             height: 120px;
             margin: 10px;
@@ -87,9 +119,16 @@
         <p id="welcomeMessage">Welcome to my portfolio!</p>
     </header>
 
-    <!-- Navigation menu links to the three main page sections -->
+    <div class="dark-toggle">
+        <label>
+            <input type="checkbox" id="darkModeToggle">
+            Dark Mode
+        </label>
+    </div>
+
     <nav>
         <a href="#about">About</a>
+        <a href="#featured">Featured Content</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </nav>
@@ -102,10 +141,30 @@
                 Hello, my name is Princess Ellis. I am studying software development
                 and building my skills in web design, programming, and database management.
             </p>
-            <p>
-                This portfolio page will be used to share my projects, practice my coding skills,
-                and show my progress as I continue learning.
-            </p>
+
+            <h3>My Skills</h3>
+            <ul id="skillsList"></ul>
+        </section>
+
+        <section id="featured">
+            <h2>Featured Content</h2>
+
+            <div id="universityResources" class="featured-box">
+                <h3>University Resources</h3>
+                <p>
+                    Visit my ECPI program page:
+                    <a href="https://www.ecpi.edu/programs/software-development-bachelor-degree" target="_blank">
+                        ECPI Software Development Program
+                    </a>
+                </p>
+            </div>
+
+            <div id="personalProjects" class="featured-box personal-projects">
+                <h3>Personal Projects</h3>
+                <a href="https://github.com/" target="_blank">
+                    <img src="https://via.placeholder.com/200x120?text=GitHub+Project" alt="GitHub Project">
+                </a>
+            </div>
         </section>
 
         <section id="projects">
@@ -131,7 +190,7 @@
             <h2>Contact Me</h2>
             <p>Please use the form below to send a message.</p>
 
-            <form>
+            <form id="contactForm">
                 <label for="senderName">Sender Name:</label>
                 <input type="text" id="senderName" name="senderName" placeholder="Enter your name">
 
@@ -144,7 +203,7 @@
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
 
-                <button type="submit">Submit</button>
+                <button type="submit" id="submitButton">Submit</button>
             </form>
         </section>
 
@@ -155,10 +214,9 @@
     </footer>
 
     <script>
-        // Prompt the user for their name and store the answer in a variable
+        // Welcome message
         let userName = prompt("Please enter your name:");
 
-        // If the user enters a name, update the welcome message at the top of the page
         if (userName) {
             document.getElementById("welcomeMessage").textContent =
                 "Welcome, " + userName + "! Thank you for visiting my portfolio.";
@@ -166,6 +224,51 @@
             document.getElementById("welcomeMessage").textContent =
                 "Welcome! Thank you for visiting my portfolio.";
         }
+
+        // Loop to display skills
+        let skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
+        let skillsList = document.getElementById("skillsList");
+
+        skills.forEach(function(skill) {
+            let listItem = document.createElement("li");
+            listItem.textContent = skill;
+            skillsList.appendChild(listItem);
+        });
+
+        // Conditional logic for Featured Content
+        let projectCount = document.querySelectorAll(".project-links a").length;
+        let universityResources = document.getElementById("universityResources");
+        let personalProjects = document.getElementById("personalProjects");
+
+        if (projectCount < 3) {
+            universityResources.style.display = "block";
+            personalProjects.style.display = "block";
+        } else {
+            universityResources.style.display = "none";
+            personalProjects.style.display = "block";
+        }
+
+        // Dark mode toggle
+        let darkModeToggle = document.getElementById("darkModeToggle");
+
+        darkModeToggle.addEventListener("change", function() {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        // Contact form submit event
+        let contactForm = document.getElementById("contactForm");
+
+        contactForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let senderName = document.getElementById("senderName").value;
+
+            if (senderName) {
+                alert("Thank you, " + senderName + ", your message has been sent!");
+            } else {
+                alert("Thank you, your message has been sent!");
+            }
+        });
     </script>
 
 </body>
