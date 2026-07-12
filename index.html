@@ -1,80 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--
         Name: Princess Ellis
-        Date: June 20, 2026
-        Assignment: Control Flow Implementation
+        Date: July 12, 2026
+        Assignment: Creating and Referencing DOM Elements
 
         Purpose:
-        This portfolio demonstrates JavaScript control flow,
-        loops, conditionals, event listeners, and dynamic
-        webpage interaction.
+        This portfolio demonstrates JavaScript DOM manipulation,
+        element selectors, event listeners, and timing functions.
     -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Princess Ellis software development portfolio">
     <title>Princess Ellis Portfolio</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f4f4f4;
             color: #333;
+            line-height: 1.6;
         }
 
         header {
             background-color: #222;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
         }
 
         nav {
             background-color: #444;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 15px;
+            margin: 0 15px;
             font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
         }
 
         section {
             background-color: white;
             margin: 20px;
-            padding: 20px;
+            padding: 22px;
             border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .featured-box {
             border: 2px solid #333;
             padding: 15px;
-            margin-top: 10px;
+            margin-top: 15px;
             border-radius: 8px;
             background-color: #eef;
         }
 
-        .project-links img,
-        .personal-projects img {
-            width: 200px;
-            height: 120px;
-            border: 2px solid #333;
-            border-radius: 8px;
-            margin: 10px;
+        .project-links a {
+            font-weight: bold;
         }
 
         form input,
         form textarea {
-            width: 95%;
+            width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin: 6px 0 15px;
             display: block;
+            border: 1px solid #999;
+            border-radius: 4px;
+            font: inherit;
         }
 
         button {
@@ -82,7 +94,13 @@
             background-color: #222;
             color: white;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #555;
         }
 
         footer {
@@ -96,6 +114,43 @@
             text-align: center;
             padding: 10px;
             background-color: #ddd;
+        }
+
+        .notification {
+            background-color: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffecb5;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .updated-heading {
+            color: #7a1f5c;
+            letter-spacing: 1px;
+        }
+
+        .highlighted-section {
+            border: 3px solid #7a1f5c;
+        }
+
+        .form-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .sending {
+            background-color: #e7f1ff;
+            color: #084298;
+            border: 1px solid #b6d4fe;
+        }
+
+        .success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
         }
 
         .dark-mode {
@@ -116,6 +171,21 @@
         .dark-mode .dark-toggle {
             background-color: #222;
             color: white;
+        }
+
+        .dark-mode .updated-heading {
+            color: #ffb6e6;
+        }
+
+        @media (max-width: 600px) {
+            nav a {
+                display: block;
+                margin: 8px;
+            }
+
+            section {
+                margin: 12px;
+            }
         }
     </style>
 </head>
@@ -143,7 +213,6 @@
 </nav>
 
 <main>
-
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
@@ -160,113 +229,88 @@
             continue learning.
         </p>
 
-        <h3>Skills & Technologies</h3>
+        <h3>Skills &amp; Technologies</h3>
         <ul id="skillsList"></ul>
     </section>
 
-    <!-- Featured Content -->
+    <!-- Featured Content Section -->
     <section id="featured">
         <h2>Featured Content</h2>
 
         <div id="universityResources" class="featured-box">
             <h3>University Resources</h3>
-
-            <p>
-                ECPI Software Development Program:
-            </p>
-
+            <p>ECPI Software Development Program:</p>
             <a href="https://www.ecpi.edu/programs/software-development-bachelor-degree"
-               target="_blank">
+               target="_blank" rel="noopener noreferrer">
                 Visit ECPI Program Page
             </a>
         </div>
 
         <div id="personalProjects" class="featured-box personal-projects">
-
-    <h3>Personal Projects</h3>
-
-    <h4>Pretty Bundles Boutique (Coming Soon)</h4>
-
-    <p>
-        A pink, white, and gold online hair boutique where customers
-        can shop for wigs, bundles, and hair products. The website
-        will include multiple pages, a shopping cart, tax calculation,
-        shipping forms, a demo checkout page, and contact information.
-    </p>
-
-    <a href="https://github.com/pellis2130" target="_blank">
-        View My GitHub Profile
-    </a>
-
-</div>
+            <h3>Personal Projects</h3>
+            <h4>Pretty Bundles Boutique (Coming Soon)</h4>
+            <p>
+                A pink, white, and gold online hair boutique where customers
+                can shop for wigs, bundles, and hair products. The website
+                will include multiple pages, a shopping cart, tax calculation,
+                shipping forms, a demo checkout page, and contact information.
+            </p>
+            <a href="https://github.com/pellis2130" target="_blank" rel="noopener noreferrer">
+                View My GitHub Profile
+            </a>
+        </div>
     </section>
 
-    <!-- Projects -->
+    <!-- Projects Section -->
     <section id="projects">
         <h2>Projects</h2>
+        <p>Below are three project links.</p>
 
-        <p>
-            Below are three project links.
-        </p>
+        <div class="project-links">
+            <p>
+                <a href="https://github.com/pellis2130/Princess-Electronic-Website-Project"
+                   target="_blank" rel="noopener noreferrer">
+                    Princess Electronic Website Project
+                </a>
+            </p>
 
-       <div class="project-links">
+            <p>
+                <a href="https://github.com/pellis2130/Pet-Adoption-Management-System"
+                   target="_blank" rel="noopener noreferrer">
+                    Pet Adoption Management System
+                </a>
+            </p>
 
-    <p>
-        <a href="https://github.com/pellis2130/Princess-Electronic-Website-Project" target="_blank">
-            Princess Electronic Website Project
-        </a>
-    </p>
-
-    <p>
-        <a href="https://github.com/pellis2130/Pet-Adoption-Management-System" target="_blank">
-            Pet Adoption Management System
-        </a>
-    </p>
-
-    <p>
-        <a href="https://github.com/pellis2130/Employee-Management-Project" target="_blank">
-            Employee Management Project
-        </a>
-    </p>
-
-</div>
+            <p>
+                <a href="https://github.com/pellis2130/Employee-Management-Project"
+                   target="_blank" rel="noopener noreferrer">
+                    Employee Management Project
+                </a>
+            </p>
+        </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Me</h2>
-
         <p>Please use the form below to send a message.</p>
 
         <form id="contactForm">
-
             <label for="senderName">Sender Name:</label>
-            <input type="text"
-                   id="senderName"
-                   placeholder="Enter your name">
+            <input type="text" id="senderName" placeholder="Enter your name" required>
 
             <label for="email">Email Address:</label>
-            <input type="email"
-                   id="email"
-                   placeholder="Enter your email">
+            <input type="email" id="email" placeholder="Enter your email" required>
 
             <label for="subject">Subject:</label>
-            <input type="text"
-                   id="subject"
-                   placeholder="Enter subject">
+            <input type="text" id="subject" placeholder="Enter subject" required>
 
             <label for="message">Message:</label>
-            <textarea id="message"
-                      rows="5"
-                      placeholder="Enter your message"></textarea>
+            <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
 
-            <button type="submit">
-                Submit
-            </button>
-
+            <button type="submit">Submit</button>
         </form>
     </section>
-
 </main>
 
 <footer>
@@ -274,105 +318,94 @@
 </footer>
 
 <script>
+    "use strict";
 
-    // Welcome message
-    let userName = prompt("Please enter your name:");
+    // Personalize the welcome message with information entered by the visitor.
+    const userName = prompt("Please enter your name:");
 
     if (userName) {
         document.getElementById("welcomeMessage").textContent =
-            "Welcome, " + userName +
-            "! Thank you for visiting my portfolio.";
+            "Welcome, " + userName + "! Thank you for visiting my portfolio.";
     }
 
-    // Skills Array + Loop
-    let skills = [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Git",
-        "GitHub"
-    ];
-
-    let skillsList =
-        document.getElementById("skillsList");
+    // Create skill list items dynamically with createElement() and appendChild().
+    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
+    const skillsList = document.getElementById("skillsList");
 
     skills.forEach(function(skill) {
-
-        let li =
-            document.createElement("li");
-
-        li.textContent = skill;
-
-        skillsList.appendChild(li);
-
+        const listItem = document.createElement("li");
+        listItem.textContent = skill;
+        skillsList.appendChild(listItem);
     });
 
-    // Conditional Logic
-    let projectCount =
-        document.querySelectorAll(
-            ".project-links a"
-        ).length;
+    // Dynamically create and append a new paragraph to the Projects section.
+    const newProjectParagraph = document.createElement("p");
+    newProjectParagraph.textContent =
+        "Recent update: I am expanding this portfolio with more interactive JavaScript features.";
+    newProjectParagraph.className = "featured-box";
+    document.getElementById("projects").appendChild(newProjectParagraph);
+
+    // Create a delayed notification and add it to the top of the page.
+    setTimeout(function() {
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.textContent =
+            "Portfolio update: New DOM features have been added to this page!";
+        document.body.insertBefore(notification, document.body.firstChild);
+    }, 1500);
+
+    // Select and modify the first existing element using querySelector().
+    const projectsHeading = document.querySelector("#projects h2");
+    projectsHeading.textContent = "My Software Development Projects";
+    projectsHeading.classList.add("updated-heading");
+
+    // Select and modify a second existing element using getElementById().
+    const aboutSection = document.getElementById("about");
+    aboutSection.classList.add("highlighted-section");
+
+    // Display the appropriate featured content based on the number of projects.
+    const projectCount = document.querySelectorAll(".project-links a").length;
 
     if (projectCount < 3) {
-
-        document.getElementById(
-            "universityResources"
-        ).style.display = "block";
-
-        document.getElementById(
-            "personalProjects"
-        ).style.display = "block";
-
-    }
-    else {
-
-        document.getElementById(
-            "universityResources"
-        ).style.display = "none";
-
-        document.getElementById(
-            "personalProjects"
-        ).style.display = "block";
-
+        document.getElementById("universityResources").style.display = "block";
+        document.getElementById("personalProjects").style.display = "none";
+    } else {
+        document.getElementById("universityResources").style.display = "none";
+        document.getElementById("personalProjects").style.display = "block";
     }
 
-    // Dark Mode Event Listener
-    document.getElementById(
-        "darkModeToggle"
-    ).addEventListener(
-        "change",
-        function() {
+    // Toggle dark mode when the checkbox changes.
+    document.getElementById("darkModeToggle").addEventListener("change", function() {
+        document.body.classList.toggle("dark-mode");
+    });
 
-            document.body.classList.toggle(
-                "dark-mode"
-            );
+    // Prevent normal submission, show a loading message, and then confirm success.
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
+        const form = event.currentTarget;
+        const senderName = document.getElementById("senderName").value.trim();
+
+        let formStatus = document.getElementById("formStatus");
+
+        if (!formStatus) {
+            formStatus = document.createElement("p");
+            formStatus.id = "formStatus";
+            formStatus.className = "form-status";
+            form.appendChild(formStatus);
         }
-    );
 
-    // Contact Form Event Listener
-    document.getElementById(
-        "contactForm"
-    ).addEventListener(
-        "submit",
-        function(event) {
+        formStatus.textContent = "Sending message...";
+        formStatus.className = "form-status sending";
 
-            event.preventDefault();
-
-            let name =
-                document.getElementById(
-                    "senderName"
-                ).value;
-
-            alert(
-                "Thank you, " +
-                name +
-                ", your message has been sent!"
-            );
-
-        }
-    );
-
+        setTimeout(function() {
+            formStatus.textContent = senderName
+                ? "Message sent successfully! Thank you, " + senderName + "."
+                : "Message sent successfully!";
+            formStatus.className = "form-status success";
+            form.reset();
+        }, 2500);
+    });
 </script>
 
 </body>
