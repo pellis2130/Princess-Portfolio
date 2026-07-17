@@ -3,128 +3,202 @@
 <head>
     <!--
         Name: Princess Ellis
-        Date: July 12, 2026
-        Assignment: Creating and Referencing DOM Elements
+        Date: July 17, 2026
+        Assignment: 4.8 Project - Persistent Storage
 
         Purpose:
-        This portfolio demonstrates JavaScript DOM manipulation,
-        element selectors, event listeners, and timing functions.
+        This portfolio demonstrates HTML, CSS, JavaScript DOM
+        manipulation, event listeners, timing functions, a custom
+        welcome modal, a Submit-button tooltip, and a persistent
+        Dark Mode preference using localStorage.
     -->
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Princess Ellis software development portfolio">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Princess Ellis software development portfolio"
+    >
+
     <title>Princess Ellis Portfolio</title>
 
     <style>
+        /* Apply consistent box sizing to all page elements. */
         * {
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            color: #333333;
+            font-family: Arial, Helvetica, sans-serif;
             line-height: 1.6;
+            background-color: #f4f4f4;
+            transition:
+                color 0.3s ease,
+                background-color 0.3s ease;
         }
 
+        /* Header styling */
         header {
-            background-color: #222;
-            color: white;
-            text-align: center;
             padding: 25px 20px;
+            color: #ffffff;
+            text-align: center;
+            background-color: #222222;
         }
 
+        header h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        /* Navigation styling */
         nav {
-            background-color: #444;
-            text-align: center;
             padding: 12px;
+            text-align: center;
+            background-color: #444444;
         }
 
         nav a {
-            color: white;
-            text-decoration: none;
             margin: 0 15px;
+            color: #ffffff;
             font-weight: bold;
+            text-decoration: none;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a:focus {
             text-decoration: underline;
         }
 
+        /* Main content layout */
         main {
+            width: 100%;
             max-width: 1000px;
             margin: auto;
         }
 
         section {
-            background-color: white;
             margin: 20px;
             padding: 22px;
+            background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition:
+                color 0.3s ease,
+                background-color 0.3s ease;
         }
 
+        section h2 {
+            margin-top: 0;
+        }
+
+        /* Featured content styling */
         .featured-box {
-            border: 2px solid #333;
-            padding: 15px;
             margin-top: 15px;
+            padding: 15px;
+            background-color: #eeeeff;
+            border: 2px solid #333333;
             border-radius: 8px;
-            background-color: #eef;
         }
 
         .project-links a {
             font-weight: bold;
         }
 
+        /* Contact form styling */
+        form label {
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
         form input,
         form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0 15px;
             display: block;
-            border: 1px solid #999;
-            border-radius: 4px;
+            width: 100%;
+            margin: 6px 0 15px;
+            padding: 10px;
             font: inherit;
+            background-color: #ffffff;
+            border: 1px solid #999999;
+            border-radius: 4px;
+        }
+
+        form textarea {
+            resize: vertical;
         }
 
         button {
             padding: 10px 20px;
-            background-color: #222;
-            color: white;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #222222;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease;
         }
 
-        button:hover {
-            background-color: #555;
+        button:hover,
+        button:focus {
+            background-color: #555555;
         }
 
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 15px;
+        button:active {
+            transform: translateY(1px);
         }
 
+        /* Dark Mode toggle section */
         .dark-toggle {
-            text-align: center;
             padding: 10px;
-            background-color: #ddd;
-        }
-
-        .notification {
-            background-color: #fff3cd;
-            color: #664d03;
-            border: 1px solid #ffecb5;
-            padding: 12px;
             text-align: center;
-            font-weight: bold;
+            background-color: #dddddd;
+            transition:
+                color 0.3s ease,
+                background-color 0.3s ease;
         }
 
+        .dark-toggle label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .dark-toggle input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Delayed notification styling */
+        .notification {
+            padding: 12px;
+            color: #664d03;
+            font-weight: bold;
+            text-align: center;
+            background-color: #fff3cd;
+            border: 1px solid #ffecb5;
+        }
+
+        /* Dynamically modified elements */
         .updated-heading {
             color: #7a1f5c;
             letter-spacing: 1px;
@@ -134,50 +208,232 @@
             border: 3px solid #7a1f5c;
         }
 
+        /* Form status messages */
         .form-status {
             margin-top: 15px;
             padding: 12px;
-            border-radius: 4px;
             font-weight: bold;
+            border-radius: 4px;
         }
 
         .sending {
-            background-color: #e7f1ff;
             color: #084298;
+            background-color: #e7f1ff;
             border: 1px solid #b6d4fe;
         }
 
         .success {
-            background-color: #d1e7dd;
             color: #0f5132;
+            background-color: #d1e7dd;
             border: 1px solid #badbcc;
         }
 
-        .dark-mode {
-            background-color: #111;
-            color: white;
+        /* --------------------------------
+           Welcome modal
+        -------------------------------- */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.65);
+            opacity: 1;
+            visibility: visible;
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease;
         }
 
-        .dark-mode section {
-            background-color: #222;
-            color: white;
+        /* Hide the modal smoothly after it is dismissed. */
+        .modal-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
-        .dark-mode .featured-box {
-            background-color: #333;
-            color: white;
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            padding: 35px;
+            color: #333333;
+            text-align: center;
+            background-color: #ffffff;
+            border: 3px solid #7a1f5c;
+            border-radius: 14px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+            animation: modalEntrance 0.35s ease;
         }
 
-        .dark-mode .dark-toggle {
-            background-color: #222;
-            color: white;
+        .modal-content h2 {
+            margin-top: 0;
+            color: #7a1f5c;
         }
 
-        .dark-mode .updated-heading {
+        .modal-content p {
+            margin-bottom: 25px;
+        }
+
+        /* X button in the top-right corner of the modal. */
+        .modal-close-x {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            padding: 4px 10px;
+            color: #555555;
+            font-size: 1.8rem;
+            line-height: 1;
+            background-color: transparent;
+        }
+
+        .modal-close-x:hover,
+        .modal-close-x:focus {
+            color: #7a1f5c;
+            background-color: transparent;
+        }
+
+        @keyframes modalEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-25px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* --------------------------------
+           Submit-button tooltip
+        -------------------------------- */
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            z-index: 20;
+            width: 210px;
+            padding: 9px 12px;
+            color: #ffffff;
+            text-align: center;
+            background-color: #333333;
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(5px);
+            transition:
+                opacity 0.2s ease,
+                visibility 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        /* Create the small arrow underneath the tooltip. */
+        .tooltip-text::after {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            content: "";
+            border: 6px solid transparent;
+            border-top-color: #333333;
+            transform: translateX(-50%);
+        }
+
+        /* Show the tooltip with a mouse or keyboard. */
+        .tooltip-container:hover .tooltip-text,
+        .tooltip-container:focus-within .tooltip-text {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Footer styling */
+        footer {
+            padding: 15px;
+            color: #ffffff;
+            text-align: center;
+            background-color: #222222;
+        }
+
+        /* --------------------------------
+           Dark Mode styles
+        -------------------------------- */
+
+        body.dark-mode {
+            color: #ffffff;
+            background-color: #111111;
+        }
+
+        body.dark-mode section {
+            color: #ffffff;
+            background-color: #222222;
+        }
+
+        body.dark-mode .featured-box {
+            color: #ffffff;
+            background-color: #333333;
+            border-color: #cccccc;
+        }
+
+        body.dark-mode .dark-toggle {
+            color: #ffffff;
+            background-color: #222222;
+        }
+
+        body.dark-mode .updated-heading {
             color: #ffb6e6;
         }
 
-        @media (max-width: 600px) {
+        body.dark-mode .highlighted-section {
+            border-color: #ffb6e6;
+        }
+
+        body.dark-mode form input,
+        body.dark-mode form textarea {
+            color: #ffffff;
+            background-color: #333333;
+            border-color: #777777;
+        }
+
+        body.dark-mode form input::placeholder,
+        body.dark-mode form textarea::placeholder {
+            color: #dddddd;
+        }
+
+        body.dark-mode a {
+            color: #ffb6e6;
+        }
+
+        body.dark-mode .modal-content {
+            color: #ffffff;
+            background-color: #222222;
+            border-color: #ffb6e6;
+        }
+
+        body.dark-mode .modal-content h2 {
+            color: #ffb6e6;
+        }
+
+        body.dark-mode .modal-close-x {
+            color: #ffffff;
+        }
+
+        body.dark-mode .modal-close-x:hover,
+        body.dark-mode .modal-close-x:focus {
+            color: #ffb6e6;
+        }
+
+        /* Responsive layout */
+        @media screen and (max-width: 600px) {
             nav a {
                 display: block;
                 margin: 8px;
@@ -186,26 +442,75 @@
             section {
                 margin: 12px;
             }
+
+            .modal-content {
+                padding: 30px 22px;
+            }
+
+            .tooltip-text {
+                width: 190px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+<!--
+    Custom welcome modal that automatically appears when the page loads.
+-->
+<div
+    id="welcomeModal"
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-describedby="modalDescription"
+>
+    <div class="modal-content">
+        <button
+            type="button"
+            id="closeModalButton"
+            class="modal-close-x"
+            aria-label="Close welcome modal"
+        >
+            &times;
+        </button>
+
+        <h2 id="modalTitle">Welcome to My Portfolio!</h2>
+
+        <p id="modalDescription">
+            This page is a work in progress. New projects, skills,
+            and interactive features will continue to be added.
+        </p>
+
+        <button type="button" id="closeModal">
+            Close
+        </button>
+    </div>
+</div>
+
 <header>
     <h1>Princess Ellis Portfolio</h1>
-    <p id="welcomeMessage">Welcome to my portfolio!</p>
+
+    <p id="welcomeMessage">
+        Welcome to my software development portfolio!
+    </p>
 </header>
 
 <!-- Dark Mode Toggle -->
 <div class="dark-toggle">
-    <label>
-        <input type="checkbox" id="darkModeToggle">
+    <label for="darkModeToggle">
+        <input
+            type="checkbox"
+            id="darkModeToggle"
+        >
+
         Dark Mode
     </label>
 </div>
 
-<nav>
+<nav aria-label="Main navigation">
     <a href="#about">About</a>
     <a href="#featured">Featured Content</a>
     <a href="#projects">Projects</a>
@@ -230,6 +535,8 @@
         </p>
 
         <h3>Skills &amp; Technologies</h3>
+
+        <!-- JavaScript adds the skill list items to this list. -->
         <ul id="skillsList"></ul>
     </section>
 
@@ -239,23 +546,39 @@
 
         <div id="universityResources" class="featured-box">
             <h3>University Resources</h3>
+
             <p>ECPI Software Development Program:</p>
-            <a href="https://www.ecpi.edu/programs/software-development-bachelor-degree"
-               target="_blank" rel="noopener noreferrer">
+
+            <a
+                href="https://www.ecpi.edu/programs/software-development-bachelor-degree"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 Visit ECPI Program Page
             </a>
         </div>
 
-        <div id="personalProjects" class="featured-box personal-projects">
+        <div
+            id="personalProjects"
+            class="featured-box personal-projects"
+        >
             <h3>Personal Projects</h3>
-            <h4>Pretty Bundles Boutique (Coming Soon)</h4>
+
+            <h4>Pretty Bundles Boutique — Coming Soon</h4>
+
             <p>
-                A pink, white, and gold online hair boutique where customers
-                can shop for wigs, bundles, and hair products. The website
-                will include multiple pages, a shopping cart, tax calculation,
-                shipping forms, a demo checkout page, and contact information.
+                A pink, white, and gold online hair boutique where
+                customers can shop for wigs, bundles, and hair
+                products. The website will include multiple pages,
+                a shopping cart, tax calculation, shipping forms,
+                a demonstration checkout page, and contact information.
             </p>
-            <a href="https://github.com/pellis2130" target="_blank" rel="noopener noreferrer">
+
+            <a
+                href="https://github.com/pellis2130"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 View My GitHub Profile
             </a>
         </div>
@@ -264,26 +587,36 @@
     <!-- Projects Section -->
     <section id="projects">
         <h2>Projects</h2>
+
         <p>Below are three project links.</p>
 
         <div class="project-links">
             <p>
-                <a href="https://github.com/pellis2130/Princess-Electronic-Website-Project"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    href="https://github.com/pellis2130/Princess-Electronic-Website-Project"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     Princess Electronic Website Project
                 </a>
             </p>
 
             <p>
-                <a href="https://github.com/pellis2130/Pet-Adoption-Management-System"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    href="https://github.com/pellis2130/Pet-Adoption-Management-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     Pet Adoption Management System
                 </a>
             </p>
 
             <p>
-                <a href="https://github.com/pellis2130/Employee-Management-Project"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    href="https://github.com/pellis2130/Employee-Management-Project"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     Employee Management Project
                 </a>
             </p>
@@ -293,22 +626,71 @@
     <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Me</h2>
+
         <p>Please use the form below to send a message.</p>
 
         <form id="contactForm">
-            <label for="senderName">Sender Name:</label>
-            <input type="text" id="senderName" placeholder="Enter your name" required>
+            <label for="senderName">
+                Sender Name:
+            </label>
 
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" placeholder="Enter your email" required>
+            <input
+                type="text"
+                id="senderName"
+                name="senderName"
+                placeholder="Enter your name"
+                required
+            >
 
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" placeholder="Enter subject" required>
+            <label for="email">
+                Email Address:
+            </label>
 
-            <label for="message">Message:</label>
-            <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
 
-            <button type="submit">Submit</button>
+            <label for="subject">
+                Subject:
+            </label>
+
+            <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Enter subject"
+                required
+            >
+
+            <label for="message">
+                Message:
+            </label>
+
+            <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Enter your message"
+                required
+            ></textarea>
+
+            <!--
+                Tooltip appears when the Submit button is hovered
+                over or receives keyboard focus.
+            -->
+            <div class="tooltip-container">
+                <button type="submit">
+                    Submit
+                </button>
+
+                <span class="tooltip-text" role="tooltip">
+                    Click to send your message!
+                </span>
+            </div>
         </form>
     </section>
 </main>
@@ -320,92 +702,294 @@
 <script>
     "use strict";
 
-    // Personalize the welcome message with information entered by the visitor.
-    const userName = prompt("Please enter your name:");
+    /* --------------------------------
+       Welcome modal functionality
+    -------------------------------- */
 
-    if (userName) {
-        document.getElementById("welcomeMessage").textContent =
-            "Welcome, " + userName + "! Thank you for visiting my portfolio.";
+    const welcomeModal =
+        document.getElementById("welcomeModal");
+
+    const closeModal =
+        document.getElementById("closeModal");
+
+    const closeModalButton =
+        document.getElementById("closeModalButton");
+
+    /*
+        Adds the hidden class to dismiss the welcome modal smoothly.
+    */
+    function dismissWelcomeModal() {
+        welcomeModal.classList.add("hidden");
     }
 
-    // Create skill list items dynamically with createElement() and appendChild().
-    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
-    const skillsList = document.getElementById("skillsList");
+    closeModal.addEventListener(
+        "click",
+        dismissWelcomeModal
+    );
+
+    closeModalButton.addEventListener(
+        "click",
+        dismissWelcomeModal
+    );
+
+    /*
+        Allow the user to close the modal by selecting the
+        transparent background outside the modal content.
+    */
+    welcomeModal.addEventListener("click", function(event) {
+        if (event.target === welcomeModal) {
+            dismissWelcomeModal();
+        }
+    });
+
+    /*
+        Allow the Escape key to close the welcome modal.
+    */
+    document.addEventListener("keydown", function(event) {
+        if (
+            event.key === "Escape" &&
+            !welcomeModal.classList.contains("hidden")
+        ) {
+            dismissWelcomeModal();
+        }
+    });
+
+    /* --------------------------------
+       Persistent Dark Mode
+    -------------------------------- */
+
+    const darkModeToggle =
+        document.getElementById("darkModeToggle");
+
+    /*
+        Retrieve the user's saved Dark Mode preference when
+        the page loads.
+    */
+    const savedDarkMode =
+        localStorage.getItem("darkMode");
+
+    if (savedDarkMode === "enabled") {
+        document.body.classList.add("dark-mode");
+        darkModeToggle.checked = true;
+    } else {
+        document.body.classList.remove("dark-mode");
+        darkModeToggle.checked = false;
+    }
+
+    /*
+        Save the user's Dark Mode choice whenever the checkbox changes.
+    */
+    darkModeToggle.addEventListener("change", function() {
+        if (darkModeToggle.checked) {
+            document.body.classList.add("dark-mode");
+
+            localStorage.setItem(
+                "darkMode",
+                "enabled"
+            );
+        } else {
+            document.body.classList.remove("dark-mode");
+
+            localStorage.setItem(
+                "darkMode",
+                "disabled"
+            );
+        }
+    });
+
+    /* --------------------------------
+       Dynamic skills list
+    -------------------------------- */
+
+    /*
+        Create skill list items dynamically using
+        createElement() and appendChild().
+    */
+    const skills = [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Git",
+        "GitHub"
+    ];
+
+    const skillsList =
+        document.getElementById("skillsList");
 
     skills.forEach(function(skill) {
-        const listItem = document.createElement("li");
+        const listItem =
+            document.createElement("li");
+
         listItem.textContent = skill;
+
         skillsList.appendChild(listItem);
     });
 
-    // Dynamically create and append a new paragraph to the Projects section.
-    const newProjectParagraph = document.createElement("p");
+    /* --------------------------------
+       Dynamic project update
+    -------------------------------- */
+
+    /*
+        Create and append a new paragraph to the Projects section.
+    */
+    const newProjectParagraph =
+        document.createElement("p");
+
     newProjectParagraph.textContent =
         "Recent update: I am expanding this portfolio with more interactive JavaScript features.";
-    newProjectParagraph.className = "featured-box";
-    document.getElementById("projects").appendChild(newProjectParagraph);
 
-    // Create a delayed notification and add it to the top of the page.
+    newProjectParagraph.className =
+        "featured-box";
+
+    document
+        .getElementById("projects")
+        .appendChild(newProjectParagraph);
+
+    /* --------------------------------
+       Delayed notification
+    -------------------------------- */
+
+    /*
+        Create a notification after a short delay and insert
+        it at the top of the page.
+    */
     setTimeout(function() {
-        const notification = document.createElement("div");
-        notification.className = "notification";
+        const notification =
+            document.createElement("div");
+
+        notification.className =
+            "notification";
+
         notification.textContent =
-            "Portfolio update: New DOM features have been added to this page!";
-        document.body.insertBefore(notification, document.body.firstChild);
+            "Portfolio update: New persistent storage features have been added to this page!";
+
+        document.body.insertBefore(
+            notification,
+            document.body.firstChild
+        );
     }, 1500);
 
-    // Select and modify the first existing element using querySelector().
-    const projectsHeading = document.querySelector("#projects h2");
-    projectsHeading.textContent = "My Software Development Projects";
-    projectsHeading.classList.add("updated-heading");
+    /* --------------------------------
+       DOM element modifications
+    -------------------------------- */
 
-    // Select and modify a second existing element using getElementById().
-    const aboutSection = document.getElementById("about");
-    aboutSection.classList.add("highlighted-section");
+    /*
+        Select and modify the Projects heading with querySelector().
+    */
+    const projectsHeading =
+        document.querySelector("#projects h2");
 
-    // Display the appropriate featured content based on the number of projects.
-    const projectCount = document.querySelectorAll(".project-links a").length;
+    projectsHeading.textContent =
+        "My Software Development Projects";
+
+    projectsHeading.classList.add(
+        "updated-heading"
+    );
+
+    /*
+        Select and modify the About section with getElementById().
+    */
+    const aboutSection =
+        document.getElementById("about");
+
+    aboutSection.classList.add(
+        "highlighted-section"
+    );
+
+    /* --------------------------------
+       Featured content selection
+    -------------------------------- */
+
+    /*
+        Display featured content based on the number of project links.
+    */
+    const projectCount =
+        document.querySelectorAll(
+            ".project-links a"
+        ).length;
 
     if (projectCount < 3) {
-        document.getElementById("universityResources").style.display = "block";
-        document.getElementById("personalProjects").style.display = "none";
+        document
+            .getElementById("universityResources")
+            .style.display = "block";
+
+        document
+            .getElementById("personalProjects")
+            .style.display = "none";
     } else {
-        document.getElementById("universityResources").style.display = "none";
-        document.getElementById("personalProjects").style.display = "block";
+        document
+            .getElementById("universityResources")
+            .style.display = "none";
+
+        document
+            .getElementById("personalProjects")
+            .style.display = "block";
     }
 
-    // Toggle dark mode when the checkbox changes.
-    document.getElementById("darkModeToggle").addEventListener("change", function() {
-        document.body.classList.toggle("dark-mode");
-    });
+    /* --------------------------------
+       Contact form interaction
+    -------------------------------- */
 
-    // Prevent normal submission, show a loading message, and then confirm success.
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+    /*
+        Prevent normal submission, display a loading message,
+        and then confirm that the message was processed.
+    */
+    document
+        .getElementById("contactForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
 
-        const form = event.currentTarget;
-        const senderName = document.getElementById("senderName").value.trim();
+                const form =
+                    event.currentTarget;
 
-        let formStatus = document.getElementById("formStatus");
+                const senderName =
+                    document
+                        .getElementById("senderName")
+                        .value
+                        .trim();
 
-        if (!formStatus) {
-            formStatus = document.createElement("p");
-            formStatus.id = "formStatus";
-            formStatus.className = "form-status";
-            form.appendChild(formStatus);
-        }
+                let formStatus =
+                    document.getElementById("formStatus");
 
-        formStatus.textContent = "Sending message...";
-        formStatus.className = "form-status sending";
+                if (!formStatus) {
+                    formStatus =
+                        document.createElement("p");
 
-        setTimeout(function() {
-            formStatus.textContent = senderName
-                ? "Message sent successfully! Thank you, " + senderName + "."
-                : "Message sent successfully!";
-            formStatus.className = "form-status success";
-            form.reset();
-        }, 2500);
-    });
+                    formStatus.id =
+                        "formStatus";
+
+                    formStatus.className =
+                        "form-status";
+
+                    form.appendChild(formStatus);
+                }
+
+                formStatus.textContent =
+                    "Sending message...";
+
+                formStatus.className =
+                    "form-status sending";
+
+                setTimeout(function() {
+                    if (senderName) {
+                        formStatus.textContent =
+                            "Message sent successfully! Thank you, " +
+                            senderName +
+                            ".";
+                    } else {
+                        formStatus.textContent =
+                            "Message sent successfully!";
+                    }
+
+                    formStatus.className =
+                        "form-status success";
+
+                    form.reset();
+                }, 2500);
+            }
+        );
 </script>
 
 </body>
